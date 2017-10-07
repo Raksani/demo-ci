@@ -1,7 +1,19 @@
 language: java
+# This is from https://docs.travis-ci.com/user/languages/java/
+install: ant deps
 
+# checkout the code to a depth of 3
 git:
   depth: 3
 
 jdk:
   - oraclejdk8
+
+# Ant is preinstalled. JUnit is in the java dir.
+before_install:
+  - cd java
+
+# Default script is "ant test". But specify it anyway.
+# The weird indented "- ant test" is a sequence (of 1).
+script:
+  - ant test
