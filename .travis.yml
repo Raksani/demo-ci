@@ -11,7 +11,8 @@ jdk:
 
 # Ant is preinstalled. JUnit is in the java dir.
 before_install:
-  - cd java
+
+
 
 # Default script is "ant test". But specify it anyway.
 # The weird indented "- ant test" is a sequence (of 1).
