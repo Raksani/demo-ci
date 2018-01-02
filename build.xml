@@ -26,14 +26,17 @@
 		<pathelement location="${build.dir}" />
 	</path>
 
+	<target name="deps" description="Install dependencies before build">
+	   <!-- nothing to install -->
+	</target>
+
 	<target name="clean"
 		    description="Clean build products by deleting build dir">
 	   <delete dir="${build.dir}" />
 	</target>
 
 	<!-- create the build directory for output -->
-	<target name="init"
-		    description="Create output directories if they don't exist" >
+	<target name="init" description="Create output dirs if they don't exist" >
 	   <mkdir dir="${build.dir}" />
 	   <mkdir dir="${test.build.dir}" />
 	</target>

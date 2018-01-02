@@ -24,8 +24,18 @@ For most projects in OOP, we'll give you an Ant build file.
 We use JUnit 4 for testing.  Circle-CI will run the project's JUnit tests
 and repor the results.
 
+### Enable Travis on Github
+
+1. In your Github project, open the "Setting" dialog (the gear icon on repo home page).
+2. Click on "Integrations & Services".
+3. Click the **Add service** button (pull-down menu) and choose "Travis CI".
+4. You can "Edit" Travis CI settings.  However, the default settings are probably OK, assuming your Travis login is same as Github login.
 
 
 Build Status
 ============
 [![Build Status](https://travis-ci.org/travis-examples/travis-java-ant-example.png?branch=master)](https://travis-ci.org/travis-examples/travis-java-ant-example) shows status of last Travis CI build. Gratuitous eye-candy.
+
+More Info
+=========
+[Building a Java Project](https://docs.travis-ci.com/user/languages/java/) how to build Java projects using Travis.

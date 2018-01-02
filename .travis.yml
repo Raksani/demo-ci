@@ -1,5 +1,7 @@
 language: java
+
 # This is from https://docs.travis-ci.com/user/languages/java/
+# You must have a target named "deps" in your ant build.xml file.
 install: ant deps
 
 # checkout the code to a depth of 3
@@ -10,6 +12,7 @@ jdk:
   - oraclejdk8
 
 # Ant is preinstalled. JUnit is in the java dir.
+# So there is nothing to do here.
 before_install:
 
 
