@@ -11,10 +11,13 @@ git:
 jdk:
   - oraclejdk8
 
-# Ant is preinstalled. JUnit is in the java dir.
-# So there is nothing to do here.
+# Ant is preinstalled. JUnit is in the Travis "java" dir.
+# So just "cd" to the java directory.
+# If that doesn't work, you could install JUnit, but it'll be slow.
+#  - sudo apt-get -qq update
+#  - sudo apt-get install ant-optional
 before_install:
-
+  - cd java
 
 
 # Default script is "ant test". But specify it anyway.

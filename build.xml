@@ -46,7 +46,7 @@
 		<javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="false" />
 	</target>
 
-	<!-- compile the test code (only do this once, using reference src) -->
+	<!-- compile the test code -->
 	<target name="test-compile" depends="init,compile"
 		    description="Compile source code for test cases" >
 		<javac srcdir="${test.src.dir}" destdir="${test.build.dir}" includeantruntime="false" >
@@ -54,17 +54,6 @@
 		</javac>
 	</target>
 
-	<!-- create JAR file containing JUnit tests -->
-	<target name="jar" depends="compile,test-compile"
-		    description="Create JAR file containing test cases" >
-		<jar destfile="${dist.dir}/DemoTest.jar" 
-			 basedir="${test.build.dir}" >
-			<!-- main class not really necesary. -->
-			<manifest>
-				<attribute name="Main-Class" value="DemoTest"/>
-			</manifest>
-		</jar>
-	</target>
 
 	<!-- Test the code using JUnit. -->
 	<target name="test" depends="test-compile" description="Run unit tests" >
