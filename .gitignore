@@ -1,4 +1,6 @@
-/bin/
+bin/
+build/
+out/
 .classpath
 .project
 *.class

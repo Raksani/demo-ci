@@ -1,5 +1,5 @@
 <!--
-    Ant build file for instructor source and test code.
+    Ant build file for sample project.
 	For a list of build tasks enter:  ant -p build.xml
  -->
 <project name="demo" default="test" basedir=".">
@@ -22,7 +22,7 @@
 		<pathelement location="/opt/lib/junit4.9/junit-dep-4.9.jar" />
 		<!-- on Travis CI builder -->
 		<pathelement location="java/junit.jar" />
-		<!-- always needed -->
+		<!-- always need build.dir on the path -->
 		<pathelement location="${build.dir}" />
 	</path>
 
@@ -74,24 +74,6 @@
 				<fileset dir="${test.src.dir}" includes="**/*Test.java" />
 			</batchtest>
 		</junit>
-	</target>
-
-	<!-- Test using my test running for JUnit. -->
-	<target name="runner" depends="test-compile" description="Run unit tests" >
-		<java classname="TestRunner" fork="true">
-			<classpath refid="junit.class.path" />
-            <classpath>
-				<pathelement path="${build.dir}" />
-				<pathelement location="${dist.dir}/DemoTest.jar" />
-			</classpath>
-		</java>
-		<java classname="ku.util.StackTest" fork="true">
-			<classpath refid="junit.class.path" />
-            <classpath>
-				<pathelement path="${build.dir}" />
-				<pathelement location="${dist.dir}/DemoTest.jar" />
-			</classpath>
-		</java>
 	</target>
 
 </project>
