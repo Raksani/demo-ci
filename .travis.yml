@@ -23,4 +23,4 @@ jdk:
 # Default script is "ant test". But specify it anyway.
 # The weird indented "- ant test" is a sequence (of 1).
 script:
-  - ant test # -Dlib.dir=lib
+  - ant test -Dlib.dir=.
