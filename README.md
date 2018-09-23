@@ -1,35 +1,30 @@
 Demo
 ====
 
-Demo project using JUnit for testing and Travis CI to build project and run tests.
+Demo project for JUnit testing and Travis CI to build project and run tests.
 
-[Travis-CI](https://travis-ci.org)
-==================================
-[Travis-CI](https://travis-ci.org) is a *continuous integration* system that builds and tests your project.  It has many hooks for integration with Github.
-
-How can a program build and test your application?  Obviously it needs to know *how* to build it and *how* to test it.
+We use [Travis-CI](https://travis-ci.com) for automated build and test.
 
 ### Building the Application
 
-You have a choice of build tools including Ant, Gradle, and Maven.
-For this demo (and OOP) we'll start with good-old [Ant](https://ant.apache.org),
-a standard tool for automatically building software, widely used for Java apps.
-Netbeans creates Ant Build files (`build.xml`) for projects and
-Eclipse can use them, too, if you configure your project to use Ant.
+Travis has several choices for build tools it can use to build and test your project. For Java projects, they are: Ant, Gradle, and Maven.
+In this demo we will use good-old [Ant](https://ant.apache.org),
+a standard tool for building software, widely used for Java apps.
 
-For most projects in OOP, we'll give you an Ant build file.
+### The Ant Build File
+
+The default name for the Ant build file is `build.xml`. Open the file in an editor to see what it looks like.  The format is XML (of course).  
 
 ### Testing with JUnit
 
-We use JUnit 4 for testing.  Circle-CI will run the project's JUnit tests
-and repor the results.
+We use JUnit 4 for testing. An Ant *task* is defined for running the JUnit tests after compiling your application.
+Travis CI will run the project's JUnit tests each time a new commit is pushed to Github, and report the results.
 
 ### Enable Travis on Github
 
-1. In your Github project, open the "Setting" dialog (the gear icon on repo home page).
-2. Click on "Integrations & Services".
-3. Click the **Add service** button (pull-down menu) and choose "Travis CI".
-4. You can "Edit" Travis CI settings.  However, the default settings are probably OK, assuming your Travis login is same as Github login.
+Add Travis as an "Application" to your Github account.  You do this from the Travis-ci.com web site. Don't use the older travis-ci.org site.
+
+Some Github project configuration may also be required. 
 
 
 Build Status
@@ -39,3 +34,5 @@ Build Status
 More Info
 =========
 [Building a Java Project](https://docs.travis-ci.com/user/languages/java/) how to build Java projects using Travis.
+
+[Travis Getting Started Guide](https://docs.travis-ci.com/user/getting-started/)

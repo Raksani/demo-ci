@@ -12,26 +12,27 @@
 	<property name="base.dir" location="." />
 	<property name="src.dir" location="src"/>
 	<property name="build.dir" location="bin"/>
+	<!-- lib.dir contains JUnit libraries -->
+	<property name="lib.dir" value="/opt/junit" />
 	<property name="test.src.dir" location="${base.dir}/test" />
 	<property name="test.build.dir" location="${base.dir}/bin/test" />
 
 	<path id="test.classpath">
-		<!-- where is JUnit? -->
-		<!-- my computer -->
-		<pathelement location="/opt/lib/junit4.9/junit-4.9.jar" />
-		<pathelement location="/opt/lib/junit4.9/junit-dep-4.9.jar" />
+		<!-- include all Jars in the lib directory (for JUnit) -->
+		<fileset dir="${lib.dir}" includes="*.jar" />
 		<!-- on Travis CI builder -->
 		<pathelement location="java/junit.jar" />
 		<!-- always need build.dir on the path -->
 		<pathelement location="${build.dir}" />
 	</path>
 
+	<!-- The "deps" target is used on Travis CI to install dependencies. -->
 	<target name="deps" description="Install dependencies before build">
 	   <!-- nothing to install -->
 	</target>
 
 	<target name="clean"
-		    description="Clean build products by deleting build dir">
+		    description="Clean build products and delete build dir">
 	   <delete dir="${build.dir}" />
 	</target>
 

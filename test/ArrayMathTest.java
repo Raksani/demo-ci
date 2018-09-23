@@ -1,6 +1,6 @@
-import static org.junit.Assert.*;
-
+import java.util.Random;
 import org.junit.Test;
+import static org.junit.Assert.*;
 
 public class ArrayMathTest {
 	final double TOL = 1.0E-6;
@@ -38,11 +38,11 @@ public class ArrayMathTest {
 		assertEquals( product, ArrayMath.dotProduct(y, x), TOL);
 	}
 
-	@Test
+	@Test(expected=java.lang.IllegalArgumentException.class)
 	public void testDotProductLengthsNotSame() {
 		
-		x = new double[] {1, 3, 5, 7, 9};
-		y = new double[] {-2, 0.2, 4};
+		double[] x = new double[] {1, 3, 5, 7, 9};
+		double[] y = new double[] {-2, 0.2, 4};
 		assertEquals( 18.6, ArrayMath.dotProduct(x, y), TOL);
 		assertEquals( 18.6, ArrayMath.dotProduct(y, x), TOL);
 	}
