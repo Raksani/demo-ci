@@ -2,10 +2,8 @@
     Ant build file for sample project.
 	For a list of build tasks enter:  ant -p build.xml
  -->
-<project name="demo" default="test" basedir=".">
-	<description>
-    Compile and test some source code.
-	</description>
+<project name="demo-ci" default="test" basedir=".">
+	<description> Compile and test project code. </description>
 
 	<!-- location of src and output (build) directory -->
 	<!-- the output directory will be deleted and created -->
@@ -13,9 +11,15 @@
 	<property name="src.dir" location="src"/>
 	<property name="build.dir" location="bin"/>
 	<!-- lib.dir contains JUnit libraries -->
-	<property name="lib.dir" value="/opt/junit" />
+	<property name="lib.dir" value="/opt/junit" /> <!-- Jim's computer only -->
 	<property name="test.src.dir" location="${base.dir}/test" />
 	<property name="test.build.dir" location="${base.dir}/bin/test" />
+
+	<!-- test if JUnit is already installed -->
+	<!-- a more robust test would be classname="org.junit.runner.Runner"
+		 but that only works if classpath is pre-configured to include JUnit.
+	 -->
+	<available file="${lib.dir}/junit-4.12.jar" property="junit.installed"/>
 
 	<path id="test.classpath">
 		<!-- include all Jars in the lib directory (for JUnit) -->
@@ -27,8 +31,10 @@
 	</path>
 
 	<!-- The "deps" target is used on Travis CI to install dependencies. -->
-	<target name="deps" description="Install dependencies before build">
-	   <!-- nothing to install -->
+	<target name="deps" unless="junit.installed" >
+		<!-- install JUnit from Maven central -->
+		<mkdir dir="${lib.dir}" />
+		<get dest="${lib.dir}/junit-4.12.jar" src="http://search.maven.org/remotecontent?filepath=junit/junit/4.12/junit-4.12.jar"/>
 	</target>
 
 	<target name="clean"
@@ -40,6 +46,7 @@
 	<target name="init" description="Create output dirs if they don't exist" >
 	   <mkdir dir="${build.dir}" />
 	   <mkdir dir="${test.build.dir}" />
+	   <mkdir dir="${lib.dir}" />
 	</target>
 
 	<!-- compile the source code -->

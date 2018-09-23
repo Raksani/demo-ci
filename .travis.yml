@@ -3,7 +3,7 @@ language: java
 # This is from https://docs.travis-ci.com/user/languages/java/
 # You must have a target named "deps" in your ant build.xml file.
 # Use this to install dependencies.
-install: ant deps
+install: ant -Dlib.dir=lib deps
 
 # checkout the code to a depth of 3
 git:
@@ -21,6 +21,6 @@ jdk:
 
 
 # Default script is "ant test". But specify it anyway.
-# The weird indented "- ant test" is a sequence (of 1).
+# The indented "- ant test" is a sequence (of 1) commands to run.
 script:
-  - ant test -Dlib.dir=.
+  - ant test -Dlib.dir=lib

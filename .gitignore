@@ -1,6 +1,8 @@
 bin/
 build/
 out/
+# automatically populated by Ant
+lib/
 .classpath
 .project
 *.class
