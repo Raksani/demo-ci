@@ -1,7 +1,11 @@
-Demo
-====
+C.I. Demo
+=========
 
-Demo project for JUnit testing and Travis CI to build project and run tests.
+Build Status: 
+[![Build Status](https://travis-ci.com/jbrucker/demo-ci.svg?branch=master)](https://travis-ci.com/jbrucker/demo-ci)
+of last [Travis CI build](https://travis-ci.com/jbrucker/demo-ci).  
+
+Demo project using Travis CI to build project and run unit tests.
 
 We use [Travis-CI](https://travis-ci.com) for automated build and test.
 
@@ -15,6 +19,14 @@ a standard tool for building software, widely used for Java apps.
 
 The default name for the Ant build file is `build.xml`. Open the file in an editor to see what it looks like.  The format is XML (of course).  
 
+There are several Ant "tasks" defined in this file, such as `clean`, `compile`, and `test`.  There is also a `deps` task that is used by Travis CI to install dependencies needed by this project.
+
+### Managing Dependencies
+
+This project needs JUnit JARs to run tests.  The Ant "deps" task includes a command to download them into a `lib` directory.  The `deps` task is run by Travis (its in the `.travis.yml` file), but it isn't automatically run locally.
+
+I do this because JUnit is already installed on my computer, so I don't need to download it each time.  In the `.travis.yml` file you'll see that the `lib` directory is set to `lib` (directory relative to the project dir), whereas when I run Ant locally, `lib` points to my JUnit lib directory.
+
 ### Testing with JUnit
 
 We use JUnit 4 for testing. An Ant *task* is defined for running the JUnit tests after compiling your application.
@@ -26,10 +38,6 @@ Add Travis as an "Application" to your Github account.  You do this from the Tra
 
 Some Github project configuration may also be required. 
 
-
-Build Status
-============
-[![Build Status](https://travis-ci.org/travis-examples/travis-java-ant-example.png?branch=master)](https://travis-ci.org/travis-examples/travis-java-ant-example) shows status of last Travis CI build. Gratuitous eye-candy.
 
 More Info
 =========
