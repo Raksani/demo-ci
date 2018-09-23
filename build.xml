@@ -11,7 +11,7 @@
 	<property name="src.dir" location="src"/>
 	<property name="build.dir" location="bin"/>
 	<!-- lib.dir contains JUnit libraries -->
-	<property name="lib.dir" value="/opt/junit" /> <!-- Jim's computer only -->
+	<property name="lib.dir" value="./lib" /> <!-- Jim's computer only -->
 	<property name="test.src.dir" location="${base.dir}/test" />
 	<property name="test.build.dir" location="${base.dir}/bin/test" />
 
@@ -24,8 +24,6 @@
 	<path id="test.classpath">
 		<!-- include all Jars in the lib directory (for JUnit) -->
 		<fileset dir="${lib.dir}" includes="*.jar" />
-		<!-- on Travis CI builder -->
-		<pathelement location="java/junit.jar" />
 		<!-- always need build.dir on the path -->
 		<pathelement location="${build.dir}" />
 	</path>
@@ -34,7 +32,15 @@
 	<target name="deps" unless="junit.installed" >
 		<!-- install JUnit from Maven central -->
 		<mkdir dir="${lib.dir}" />
-		<get dest="${lib.dir}/junit-4.12.jar" src="http://search.maven.org/remotecontent?filepath=junit/junit/4.12/junit-4.12.jar"/>
+        <!-- http://central.maven.org/maven2/junit/junit/4.12/junit-4.12.jar -->
+		<get dest="${lib.dir}/junit-4.12.jar" 
+             src="http://search.maven.org/remotecontent?filepath=junit/junit/4.12/junit-4.12.jar"
+             skipexisting="true" 
+             verbose="true" />
+		<get dest="${lib.dir}/hamcrest-core-1.3.jar" 
+             src="http://central.maven.org/maven2/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
+             skipexisting="true" 
+             verbose="true" />
 	</target>
 
 	<target name="clean"
@@ -46,7 +52,6 @@
 	<target name="init" description="Create output dirs if they don't exist" >
 	   <mkdir dir="${build.dir}" />
 	   <mkdir dir="${test.build.dir}" />
-	   <mkdir dir="${lib.dir}" />
 	</target>
 
 	<!-- compile the source code -->
