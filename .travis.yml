@@ -9,14 +9,13 @@ install: ant deps
 git:
   depth: 3
 
+# Which JDK to use for build?
 jdk:
   - oraclejdk8
 
-# Ant is preinstalled. JUnit is in the Travis "java" dir.
-# So just "cd" to the java directory.
-# If that doesn't work, you could install JUnit, but it'll be slow.
-#  - sudo apt-get -qq update
-#  - sudo apt-get install ant-optional
+# Ant is preinstalled on Travis's virtual env, but where is JUnit?
+# Some user claimed that JUnit JARs are in a directory named "java",
+# but it doesn't work.
 #before_install:
 #  - cd java
 
@@ -24,4 +23,4 @@ jdk:
 # Default script is "ant test". But specify it anyway.
 # The weird indented "- ant test" is a sequence (of 1).
 script:
-  - ant test -Dlib.dir=java
+  - ant test # -Dlib.dir=lib
