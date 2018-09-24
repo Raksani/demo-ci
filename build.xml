@@ -1,36 +1,33 @@
 <!--
     Ant build file for sample project.
-	For a list of build tasks enter:  ant -p build.xml
+	For a list of build tasks enter:  
+    ant -p
  -->
 <project name="demo-ci" default="test" basedir=".">
 	<description> Compile and test project code. </description>
 
-	<!-- location of src and output (build) directory -->
-	<!-- the output directory will be deleted and created -->
+	<!-- location of src and output (build) directories. -->
+	<!-- the build directory will be deleted and recreated -->
 	<property name="base.dir" location="." />
-	<property name="src.dir" location="src"/>
-	<property name="build.dir" location="bin"/>
-	<!-- lib.dir contains JUnit libraries -->
-	<property name="lib.dir" value="./lib" /> <!-- Jim's computer only -->
+	<property name="src.dir" location="${base.dir}/src"/>
+	<property name="build.dir" location="${base.dir}/bin"/>
 	<property name="test.src.dir" location="${base.dir}/test" />
 	<property name="test.build.dir" location="${base.dir}/bin/test" />
-
-	<!-- test if JUnit is already installed -->
-	<!-- a more robust test would be classname="org.junit.runner.Runner"
-		 but that only works if classpath is pre-configured to include JUnit.
-	 -->
-	<available file="${lib.dir}/junit-4.12.jar" property="junit.installed"/>
+	<!-- lib.dir contains JUnit libraries -->
+	<property name="lib.dir" value="/opt/junit" /> <!-- Jim's computer only -->
 
 	<path id="test.classpath">
 		<!-- include all Jars in the lib directory (for JUnit) -->
 		<fileset dir="${lib.dir}" includes="*.jar" />
-		<!-- always need build.dir on the path -->
+		<!-- always need build output directory on the path -->
 		<pathelement location="${build.dir}" />
 	</path>
 
 	<!-- The "deps" target is used on Travis CI to install dependencies. -->
-	<target name="deps" unless="junit.installed" >
-		<!-- install JUnit from Maven central -->
+	<target name="deps"
+            description="Install JUnit Jars as necessary. Used by Travis-CI." >
+		<!-- Install JUnit from Maven central -->
+		<!-- Two different style URLs to download stuff from Maven Central -->
 		<mkdir dir="${lib.dir}" />
         <!-- http://central.maven.org/maven2/junit/junit/4.12/junit-4.12.jar -->
 		<get dest="${lib.dir}/junit-4.12.jar" 
@@ -43,13 +40,12 @@
              verbose="true" />
 	</target>
 
-	<target name="clean"
-		    description="Clean build products and delete build dir">
+	<target name="clean" description="Delete build products and build directory">
 	   <delete dir="${build.dir}" />
 	</target>
 
 	<!-- create the build directory for output -->
-	<target name="init" description="Create output dirs if they don't exist" >
+	<target name="init" description="Create output directories if they don't exist" >
 	   <mkdir dir="${build.dir}" />
 	   <mkdir dir="${test.build.dir}" />
 	</target>
@@ -67,7 +63,6 @@
 		</javac>
 	</target>
 
-
 	<!-- Test the code using JUnit. -->
 	<target name="test" depends="test-compile" description="Run unit tests" >
 		<junit fork="true" printsummary="on" haltonfailure="false">
@@ -75,8 +70,9 @@
 				<path refid="test.classpath" />
 				<pathelement location="${test.build.dir}" />
 			</classpath>
+			<!-- What classes contain JUnit tests? -->
 			<batchtest>
-				<fileset dir="${test.src.dir}" includes="**/*Test.java" />
+				<fileset dir="${test.build.dir}" includes="**/*Test.class" />
 			</batchtest>
 		</junit>
 	</target>

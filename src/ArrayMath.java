@@ -25,4 +25,18 @@ public class ArrayMath {
 		return product;
 	}
 	
+	/**
+	 * Perform scalar a times vector x plus y.
+	 * @return the vector result a*x[] + y[]
+	 */
+	public static double[] saxpy(double a, double[] x, double[] y) {
+		if (x.length != y.length)
+			throw new IllegalArgumentException("Vector lengths must be same.");
+		int len = x.length;
+		double[] result = new double[len];
+		for(int k=0; k<len; k++) {
+			result[k] = a*x[k] + y[k];
+		}
+		return result;
+	}
 }

@@ -46,5 +46,25 @@ public class ArrayMathTest {
 		assertEquals( 18.6, ArrayMath.dotProduct(x, y), TOL);
 		assertEquals( 18.6, ArrayMath.dotProduct(y, x), TOL);
 	}
+	
+	@Test
+	public void testSaxpyEmptyVector() {
+		double[] x = new double[] { };
+		double[] y = new double[] { };
+		double[] r = ArrayMath.saxpy(10.0, x, y);
+		assertEquals(0, r.length);
+	}
 
+	@Test
+	public void testSaxpyTypicalVector() {
+		double[] x = new double[] {-2.0, 2.5, 4.0 };
+		double[] y = new double[] {10.0, 20.0, 30.0};
+		double[] expect = {8.0, 22.5, 34.0};
+		double[] r = ArrayMath.saxpy(1.0, x, y);
+		assertArrayEquals(expect, r, TOL);
+		// change the multiplier only
+		expect = new double[] {-10.0, 45.0, 70.0};
+		double[] r2 = ArrayMath.saxpy(10.0, x, y);
+		assertArrayEquals(expect, r2, TOL);
+	}
 }
