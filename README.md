@@ -45,9 +45,9 @@ If you type `ant test` a second time, you will see that the "init", "compile", a
 
 ### Managing Dependencies
 
-This project needs JUnit JARs to run tests. These are already installed on the developer's machine, but may not be on the Travis virtual machine, or not on the VM's Java classpath.   The Ant `deps` task includes a command to download JUnit JARs into a `lib` directory.  The `deps` task is run by Travis (it is specified in the `.travis.yml` file), but it isn't automatically run locally.
+This project needs JUnit JARs to run tests. These are (suprisingly) not on the CLASSPATH of the Travis virtual machine, so they need to be installed before compiling the code.   The Ant `deps` task includes a command to download JUnit JARs into a `./lib` directory.  The Travis config file `.travis.yml` runs `ant deps` as part of the VM initialization.
 
-I do this because JUnit is already installed on my computer, so I don't need to download it each time.  In the `.travis.yml` file you'll see that the `lib` directory is set to `lib` (directory relative to the project dir), whereas when I run Ant locally, `lib` points to my JUnit lib directory.
+I do this because JUnit is already installed on my computer, so I don't need to download it each time.  In the `.travis.yml` file you'll see that the `lib.dir` directory is set to `lib` (directory relative to the project dir), whereas when I run Ant locally (on my machine), `lib` points to my JUnit directory, which is `/opt/junit`.
 
 ### Enable Travis on Github
 
