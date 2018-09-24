@@ -1,7 +1,7 @@
 Continuous Integration Demo
-============================
+===========================
 
-Status of last [Travis CI build](https://travis-ci.com/jbrucker/demo-ci):  
+Status of last [Travis CI build](https://travis-ci.com/jbrucker/demo-ci): 
 [![Build Status](https://travis-ci.com/jbrucker/demo-ci.svg?branch=master)](https://travis-ci.com/jbrucker/demo-ci)
 
 Demo project using Travis CI to build and test a Java project.
@@ -10,9 +10,9 @@ Demo project using Travis CI to build and test a Java project.
 
 ### Building the Application
 
-Travis has several choices of **build tools** it can use to build and test your project. For Java projects, choices are: Ant, Gradle, and Maven.
+Travis has several choices of **build tools** it can use to build and test your project. For Java projects the choices are: Ant, Gradle, and Maven.
 In this demo project we use good-old Apache [Ant](https://ant.apache.org),
-a standard software build tool, widely used for Java apps.
+a standard software build tool widely used for Java apps.
 
 ### The Ant Build File
 
@@ -33,13 +33,15 @@ Here is part of the build file:
 ```
 the `property` elements define named constants, the `target` directives define tasks to perform.
 The "compile" target requires that the "init" target be done first. Ant will take care of executing
-dependencies itself.  The commands for this target (task) to perform are given inside the XML scope
+dependencies.  The commands for a target (task) to perform are given inside the XML scope
 for that target. `javac` is an Ant pre-defined task that will compile everything in the `srcdir`.
 
 ### Test the Build
 
 Run the tests locally by typing `ant test`.  Ant will perform the "init", "compile", "test-compile",
 and "test" targets, and display output on your terminal.
+
+If you type `ant test` a second time, you will see that the "init", "compile", and "test-compile" tasks don't do anything, because their results are already up-to-date.
 
 ### Managing Dependencies
 
