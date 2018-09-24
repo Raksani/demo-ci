@@ -49,14 +49,16 @@ I do this because JUnit is already installed on my computer, so I don't need to 
 
 ### Enable Travis on Github
 
-Add Travis as an "Application" to your Github account.  You do this from the Travis-ci.com web site. Don't use the older travis-ci.org site.
+See links below for how to add Travis as an "Application" to your Github account.  You do this from the Travis-ci.com web site. Don't use the older travis-ci.org site.  
 
-Some Github project configuration may also be required. 
+The Travis-CI site lets you configure project-specific settings, such as what branch it should build, and what triggers a build.  You can add pull requests as a trigger.
 
+Then configure your Github project for Travis, such as adding a `.travis.yml` file.
 
-More Info
-=========
-[Building a Java Project](https://docs.travis-ci.com/user/languages/java/) how to build a Java project using Travis. Info on Ant builds is kind of sketchy.
+------
+### More Info
+
+[Building a Java Project](https://docs.travis-ci.com/user/languages/java/) with Travis CI. Info on Ant builds is a bit sketchy.
 
 [Travis Getting Started Guide](https://docs.travis-ci.com/user/getting-started/)
 
