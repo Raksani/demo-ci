@@ -8,13 +8,13 @@ Demo project using Travis CI to build and test a Java project.
 
 [Travis-CI](https://travis-ci.com) is a continuous integration server for building, testing, and deploying software projects.  It works with many lanaguages and integrates easily with Github.
 
-### Building the Application
+## Building the Application
 
 Travis has several choices of **build tools** it can use to build and test your project. For Java projects the choices are: Ant, Gradle, and Maven.
 In this demo project we use good-old Apache [Ant](https://ant.apache.org),
 a standard software build tool widely used for Java apps.
 
-### The Ant Build File
+## The Ant Build File
 
 The Ant build file is `build.xml` (the default name). Open the file in an editor (not a web browser) to see what it looks like.  The format is XML, of course.
 
@@ -36,7 +36,7 @@ The "compile" target requires that the "init" target be done first. Ant will tak
 dependencies.  The commands for a target (task) to perform are given inside the XML scope
 for that target. `javac` is an Ant pre-defined task that will compile everything in the `srcdir`.
 
-### Test the Build
+## Test the Build
 
 Run the tests locally by typing `ant test`.  Ant will perform the "init", "compile", "test-compile",
 and "test" targets, and display output on your terminal.
@@ -49,7 +49,7 @@ This project needs JUnit JARs to run tests. These are (suprisingly) not on the C
 
 I do this because JUnit is already installed on my computer in an external directory, so I don't need to download it each time.  In the `.travis.yml` file you'll see that the `lib.dir` property is set to `./lib` (directory relative to the project dir), whereas when I run Ant locally, `lib.dir` points to my JUnit lib directory.
 
-### Enable Travis on Github
+## Enable Travis on Github
 
 See links below for how to add Travis as an "Application" to your Github account.  You do this from the Travis-ci.com web site. Don't use the older travis-ci.org site.  
 
@@ -58,7 +58,7 @@ The Travis-CI site lets you configure project-specific settings, such as what br
 Then configure your Github project for Travis, such as adding a `.travis.yml` file.
 
 ------
-### More Info
+## More Info
 
 [Building a Java Project](https://docs.travis-ci.com/user/languages/java/) with Travis CI. Info on Ant builds is a bit sketchy.
 
