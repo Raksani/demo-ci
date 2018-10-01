@@ -7,3 +7,4 @@ lib/
 .project
 *.class
 runtests.sh
+demo-ci.jar

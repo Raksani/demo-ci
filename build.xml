@@ -1,16 +1,16 @@
 <!--
     Ant build file for sample project.
-	For a list of build tasks enter:  
-    ant -p
+	For a list of build tasks enter:  ant -p
  -->
 <project name="demo-ci" default="test" basedir=".">
-	<description> Compile and test project code. </description>
+	<description> Demo project for testing with CI. </description>
 
 	<!-- location of src and output (build) directories. -->
 	<!-- the build directory will be deleted and recreated -->
 	<property name="base.dir" location="." />
 	<property name="src.dir" location="${base.dir}/src"/>
 	<property name="build.dir" location="${base.dir}/bin"/>
+	<property name="dist.dir" location="${base.dir}"/>
 	<property name="test.src.dir" location="${base.dir}/test" />
 	<property name="test.build.dir" location="${base.dir}/bin/test" />
 	<!-- lib.dir contains JUnit libraries -->
@@ -19,13 +19,13 @@
 	<path id="test.classpath">
 		<!-- include all Jars in the lib directory (for JUnit) -->
 		<fileset dir="${lib.dir}" includes="*.jar" />
-		<!-- always need build output directory on the path -->
+		<!-- always need the build directory on the classpath -->
 		<pathelement location="${build.dir}" />
 	</path>
 
 	<!-- The "deps" target is used on Travis CI to install dependencies. -->
 	<target name="deps"
-            description="Install JUnit Jars as necessary. Used by Travis-CI." >
+            description="Install JUnit jars. Needed for Travis-CI." >
 		<!-- Install JUnit from Maven central -->
 		<!-- Two different style URLs to download stuff from Maven Central -->
 		<mkdir dir="${lib.dir}" />
@@ -76,5 +76,18 @@
 			</batchtest>
 		</junit>
 	</target>
+
+    <!-- create a JAR file -->
+    <target name="dist" depends="compile" 
+                       description="Create JAR file of main code" >
+        <jar destfile="${dist.dir}/demo-ci.jar" 
+             basedir="${build.dir}" 
+             excludes="test,test/*" >
+            <!-- For a runnable Jar file, manifest must have a Main-Class -->
+            <manifest>
+                <attribute name="Main-Class" value="ArrayMath"/>
+            </manifest>
+        </jar>
+    </target>
 
 </project>
