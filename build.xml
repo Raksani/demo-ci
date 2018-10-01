@@ -14,7 +14,8 @@
 	<property name="test.src.dir" location="${base.dir}/test" />
 	<property name="test.build.dir" location="${base.dir}/bin/test" />
 	<!-- lib.dir contains JUnit libraries -->
-	<property name="lib.dir" value="/opt/junit" /> <!-- Jim's computer only -->
+	<property name="lib.dir" value="${base.dir}/lib" /> 
+                <!-- On Jim's computer use /opt/junit -->
 
 	<path id="test.classpath">
 		<!-- include all Jars in the lib directory (for JUnit) -->
@@ -57,7 +58,7 @@
 
 	<!-- compile the test code -->
 	<target name="test-compile" depends="init,compile"
-		    description="Compile source code for test cases" >
+		    description="Compile source code for unit tests" >
 		<javac srcdir="${test.src.dir}" destdir="${test.build.dir}" includeantruntime="false" >
 			<classpath refid="test.classpath" />
 		</javac>

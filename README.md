@@ -10,15 +10,15 @@ Demo project using Travis CI to build and test a Java project.
 
 ## Building the Application
 
-Travis has several choices of **build tools** it can use to build and test your project. For Java projects the choices are: Ant, Gradle, and Maven.
+To build a Java project on Travis-CI, use Ant, Gradle, or Maven. 
 In this demo project we use good-old Apache [Ant](https://ant.apache.org),
-a standard software build tool widely used for Java apps.
+a standard Java build tool.
 
 ## The Ant Build File
 
-The Ant build file is `build.xml` (the default name). Open the file in an editor (not a web browser) to see what it looks like.  The format is XML, of course.
+The Ant build file is `build.xml`. Open the file in an editor (not a web browser) to see what it looks like.  The format is XML, of course.
 
-There are several Ant "targets" (*aka* tasks) defined in this file, such as `clean`, `compile`, and `test`.  There is also a `deps` task used by Travis CI to install dependencies needed for Travis to build and test this project.
+There are several Ant "targets" defined in this file, such as `clean`, `compile`, and `test`.  There is also a `deps` target used by Travis CI to install dependencies needed for Travis to build and test this project.
 
 Here is part of the build file:
 ```xml
@@ -36,10 +36,13 @@ The "compile" target requires that the "init" target be done first. Ant will tak
 dependencies.  The commands for a target (task) to perform are given inside the XML scope
 for that target. `javac` is an Ant pre-defined task that will compile everything in the `srcdir`.
 
-## Test the Build
+## Build and Test Locally
 
-Run the tests locally by typing `ant test`.  Ant will perform the "init", "compile", "test-compile",
-and "test" targets, and display output on your terminal.
+Ant requires the JUnit libraries be on the classpath. You can a) copy them to the `lib` directory, b) use ant -Dlib.dir=/your/junit/directory test, or c) run `ant deps` to download the Junit jars.  That is:
+```
+ant deps
+ant test
+```
 
 If you type `ant test` a second time, the "init", "compile", and "test-compile" tasks are run but don't do anything, because their outputs are already up-to-date.
 
