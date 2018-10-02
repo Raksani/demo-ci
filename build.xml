@@ -81,17 +81,4 @@
 		</junit>
 	</target>
 
-    <!-- create a JAR file -->
-    <target name="dist" depends="compile" 
-                       description="Create JAR file of main code" >
-        <jar destfile="${dist.dir}/demo-ci.jar" 
-             basedir="${build.dir}" 
-             excludes="test,test/*" >
-            <!-- For a runnable Jar file, manifest must have a Main-Class -->
-            <manifest>
-                <attribute name="Main-Class" value="ArrayMath"/>
-            </manifest>
-        </jar>
-    </target>
-
 </project>
