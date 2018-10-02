@@ -1,6 +1,10 @@
 <!--
     Ant build file for sample project.
 	For a list of build tasks enter:  ant -p
+
+    lib.dir contains JUnit JAR files.
+    To specify your own lib dir use:
+      ant -Dlib.dir=/your/junit/dir test
  -->
 <project name="demo-ci" default="test" basedir=".">
 	<description> Demo project for testing with CI. </description>
@@ -15,7 +19,6 @@
 	<property name="test.build.dir" location="${base.dir}/bin/test" />
 	<!-- lib.dir contains JUnit libraries -->
 	<property name="lib.dir" value="${base.dir}/lib" /> 
-                <!-- On Jim's computer use /opt/junit -->
 
 	<path id="test.classpath">
 		<!-- include all Jars in the lib directory (for JUnit) -->

@@ -4,24 +4,22 @@ language: java
 # You must have a target named "deps" in your ant build.xml file.
 # Use this to install dependencies.
 
-install: ant -Dlib.dir=lib deps
+# Ant is preinstalled on Travis's virtual env, but where is JUnit?
+# I couldn't find on VM, so install using an ant task.
 
-# checkout the code to a depth of 3
+install: ant deps   
+
+# checkout the code to a depth of 1 (or some small number)
 git:
-  depth: 3
+  depth: 1
 
 # Which JDK to use for build?  You can specifiy more than one.
 jdk:
   - oraclejdk8
 
-# Ant is preinstalled on Travis's virtual env, but where is JUnit?
-# A user claimed that JUnit JARs are in a directory named "java",
-# but this doesn't work. So don't do it:
-##before_install:
-##  - cd java
 
 # Default build script is "ant test".
-# The indented "- ant test" is a sequence (of 1) commands to run.
+# You can run many commands, one per line prefixed with "  - ".
 
 script:
-  - ant test -Dlib.dir=lib
+  - ant test
