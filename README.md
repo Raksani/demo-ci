@@ -38,11 +38,32 @@ for that target. `javac` is an Ant pre-defined task that will compile everything
 
 ## Build and Test Locally
 
-Ant requires the JUnit libraries be on the classpath. You can a) copy them to the `lib` directory, b) use ant -Dlib.dir=/your/junit/directory test, or c) run `ant deps` to download the Junit jars.  That is:
-```
-ant deps
+> If you want to automatically test this project using Travis CI,
+> then you need to create your own Github repo for it.
+>
+> Therefore, you should **not clone** the repo from Github.
+> Download the code as a ZIP file, create your own repo, then
+> add Github as remote origin later.  After that, give Travis
+> access to your Github repo and trigger a build on Travis.
+
+Ant requires the JUnit libraries be on the classpath.  Do either:
+  * copy them to a `lib` dir inside this project 
+  * use a command line argument to change the lib.dir to refer to your JUnit directory (of course you have JUnit installed):
+  ```shell
+  ant -Dlib.dir=/opt/lib/junit  test
+  ```
+  * Install them using an Ant task:
+  ```shell
+  ant deps
+  ```
+
+Run `ant -p` to print a list of targets.
+
+Then run the tests using:
+```shell
 ant test
 ```
+You'll see Ant run the `init`, `compile`, and `test-compile` tasks before running `test`.
 
 If you type `ant test` a second time, the "init", "compile", and "test-compile" tasks are run but don't do anything, because their outputs are already up-to-date.
 
