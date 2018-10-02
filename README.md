@@ -6,6 +6,15 @@ Status of last [Travis CI build](https://travis-ci.com/jbrucker/demo-ci):
 
 Demo project using Travis CI to build and test a Java project.
 
+> If you want to test this project using Travis CI,
+> then you need to create your **own Github repo** for it.
+>
+> Therefore, **do not clone** this repo from Github.
+> Download it as a **ZIP file**, create your own repo, then
+> add Github as remote origin and push. 
+
+> After that, give Travis access to your Github repo and trigger a build on Travis.
+
 [Travis-CI](https://travis-ci.com) is a continuous integration server for building, testing, and deploying software projects.  It works with many lanaguages and integrates easily with Github.
 
 ## Building the Application
@@ -16,9 +25,9 @@ a standard Java build tool.
 
 ## The Ant Build File
 
-The Ant build file is `build.xml`. Open the file in an editor (not a web browser) to see what it looks like.  The format is XML, of course.
+The Ant build file is `build.xml`. Open the file in an editor (not a web browser) to see what it looks like.
 
-There are several Ant "targets" defined in this file, such as `clean`, `compile`, and `test`.  There is also a `deps` target used by Travis CI to install dependencies needed for Travis to build and test this project.
+There are several Ant "targets" defined in the build file, such as `clean`, `compile`, and `test`.  There is also a `deps` target used by Travis CI to install dependencies needed for Travis to build and test this project.  Type `ant -p` to print all targets.
 
 Here is part of the build file:
 ```xml
@@ -31,33 +40,24 @@ Here is part of the build file:
         <javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="false" />
     </target>
 ```
-the `property` elements define named constants, the `target` elements define tasks to perform.
-The "compile" target requires that the "init" target be done first. Ant will take care of executing
-dependencies.  The commands for a target (task) to perform are given inside the XML scope
-for that target. `javac` is an Ant pre-defined task that will compile everything in the `srcdir`.
+The target is named "compile", which requires another target ("init") be done first.  The "compile" target contains one task to perform: `javac`.
+`javac` is an Ant pre-defined task that will compile everything in the `srcdir` and subdirs, and put the compiler output in corresponding directory in `destdir`.
+
+If there are any errors, the task will print error messages and ant will stop.
 
 ## Build and Test Locally
 
-> If you want to automatically test this project using Travis CI,
-> then you need to create your own Github repo for it.
->
-> Therefore, you should **not clone** the repo from Github.
-> Download the code as a ZIP file, create your own repo, then
-> add Github as remote origin later.  After that, give Travis
-> access to your Github repo and trigger a build on Travis.
-
-Ant requires the JUnit libraries be on the classpath.  Do either:
-  * copy them to a `lib` dir inside this project 
-  * use a command line argument to change the lib.dir to refer to your JUnit directory (of course you have JUnit installed):
+Ant requires the JUnit libraries on the classpath.  In the build.xml, it uses `lib.dir` for the directory containing Jars.
+Do one of these:
+  * copy JUnit Jars to a `lib` dir inside this project 
+  * use a command line argument to set `lib.dir` to refer to your JUnit directory (of course you have JUnit installed, right?):
   ```shell
-  ant -Dlib.dir=/opt/lib/junit  test
+  ant -Dlib.dir=/your/junit/lib  test
   ```
   * Install them using an Ant task:
   ```shell
   ant deps
   ```
-
-Run `ant -p` to print a list of targets.
 
 Then run the tests using:
 ```shell
@@ -69,9 +69,7 @@ If you type `ant test` a second time, the "init", "compile", and "test-compile" 
 
 ### Managing Dependencies
 
-This project needs JUnit JARs to run tests. These are (suprisingly) not on the CLASSPATH of the Travis virtual machine, so they need to be installed before compiling the code.   The Ant `deps` task includes a command to download JUnit JARs into a `./lib` directory.  The Travis config file `.travis.yml` runs `ant deps` as part of the VM initialization.
-
-I do this because JUnit is already installed on my computer in an external directory, so I don't need to download it each time.  In the `.travis.yml` file you'll see that the `lib.dir` property is set to `./lib` (directory relative to the project dir), whereas when I run Ant locally, `lib.dir` points to my JUnit lib directory.
+This project needs JUnit JARs to run tests. These are (suprisingly) not on the CLASSPATH of the Travis Virtual Machine, so they need to be installed before compiling the code.   Travis automatically runs an "ant deps" task to setup dependencies.  So in `build.xml` there is a `deps` target that download JUnit JARs into a `./lib` directory.
 
 ## Enable Travis on Github
 
@@ -79,7 +77,7 @@ See links below for how to add Travis as an "Application" to your Github account
 
 The Travis-CI site lets you configure project-specific settings, such as what branch it should build, and what triggers a build.  You can add pull requests as a trigger.
 
-Then configure your Github project for Travis, such as adding a `.travis.yml` file.
+You may need to force Travis to do an initial build of your project.  Use the "More Options" menu on the right-side of Travis screen for your project.
 
 ------
 ## More Info
