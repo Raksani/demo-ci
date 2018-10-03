@@ -10,21 +10,24 @@
 	<description> Demo project for testing with CI. </description>
 
 	<!-- location of src and output (build) directories. -->
-	<!-- the build directory will be deleted and recreated -->
-	<property name="base.dir" location="." />
-	<property name="src.dir" location="${base.dir}/src"/>
-	<property name="build.dir" location="${base.dir}/bin"/>
-	<property name="dist.dir" location="${base.dir}"/>
-	<property name="test.src.dir" location="${base.dir}/test" />
-	<property name="test.build.dir" location="${base.dir}/bin/test" />
+    <!-- TODO define properties for these. -->
+	<property name="src.dir" location="todo"/>
+	<property name="build.dir" location="todo"/>
+	<property name="dist.dir" location="todo"/>
+	<property name="test.src.dir" location="todo" />
+	<property name="test.build.dir" location="todo" />
 	<!-- lib.dir contains JUnit libraries -->
-	<property name="lib.dir" value="${base.dir}/lib" /> 
+	<property name="lib.dir" value="todo" /> 
+
+    <!-- TODO Replace constants "src", "bin", "bin/test", "test", "lib", "."
+              in the following rules with the properties named above
+     -->
 
 	<path id="test.classpath">
 		<!-- include all Jars in the lib directory (for JUnit) -->
-		<fileset dir="${lib.dir}" includes="*.jar" />
+		<fileset dir="lib" includes="*.jar" />
 		<!-- always need the build directory on the classpath -->
-		<pathelement location="${build.dir}" />
+		<pathelement location="bin" />
 	</path>
 
 	<!-- The "deps" target is used on Travis CI to install dependencies. -->
@@ -32,37 +35,37 @@
             description="Install JUnit jars. Needed for Travis-CI." >
 		<!-- Install JUnit from Maven central -->
 		<!-- Two different style URLs to download stuff from Maven Central -->
-		<mkdir dir="${lib.dir}" />
+		<mkdir dir="lib" />
         <!-- http://central.maven.org/maven2/junit/junit/4.12/junit-4.12.jar -->
-		<get dest="${lib.dir}/junit-4.12.jar" 
+		<get dest="lib/junit-4.12.jar" 
              src="http://search.maven.org/remotecontent?filepath=junit/junit/4.12/junit-4.12.jar"
              skipexisting="true" 
              verbose="true" />
-		<get dest="${lib.dir}/hamcrest-core-1.3.jar" 
+		<get dest="lib/hamcrest-core-1.3.jar" 
              src="http://central.maven.org/maven2/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar"
              skipexisting="true" 
              verbose="true" />
 	</target>
 
 	<target name="clean" description="Delete build products and build directory">
-	   <delete dir="${build.dir}" />
+	   <delete dir="bin" />
 	</target>
 
 	<!-- create the build directory for output -->
 	<target name="init" description="Create output directories if they don't exist" >
-	   <mkdir dir="${build.dir}" />
-	   <mkdir dir="${test.build.dir}" />
+	   <mkdir dir="bin" />
+	   <mkdir dir="bin/test" />
 	</target>
 
 	<!-- compile the source code -->
 	<target name="compile" depends="init" description="Compile source code" >
-		<javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="false" />
+		<javac srcdir="src" destdir="bin" includeantruntime="false" />
 	</target>
 
 	<!-- compile the test code -->
 	<target name="test-compile" depends="init,compile"
-		    description="Compile source code for unit tests" >
-		<javac srcdir="${test.src.dir}" destdir="${test.build.dir}" includeantruntime="false" >
+		    description="Compile unit test source code" >
+		<javac srcdir="test" destdir="bin/test" includeantruntime="false" >
 			<classpath refid="test.classpath" />
 		</javac>
 	</target>
@@ -72,11 +75,11 @@
 		<junit fork="true" printsummary="on" haltonfailure="false">
 			<classpath>
 				<path refid="test.classpath" />
-				<pathelement location="${test.build.dir}" />
+				<pathelement location="bin/test" />
 			</classpath>
 			<!-- What classes contain JUnit tests? -->
 			<batchtest>
-				<fileset dir="${test.build.dir}" includes="**/*Test.class" />
+				<fileset dir="bin/test" includes="**/*Test.class" />
 			</batchtest>
 		</junit>
 	</target>

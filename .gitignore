@@ -8,3 +8,4 @@ lib/
 *.class
 runtests.sh
 demo-ci.jar
+build-all.jar
