@@ -67,4 +67,11 @@ public class ArrayMathTest {
 		double[] r2 = ArrayMath.saxpy(10.0, x, y);
 		assertArrayEquals(expect, r2, TOL);
 	}
+	
+	@Test
+	public void testSumSquaresEasyArray() {
+		double[] y = new double[] {10.0, 20.0, 30.0};
+		double expected = 10*10 + 20*20 + 30*30;
+		assertEquals( expected, ArrayMath.sumSquares(y), TOL);
+	}
 }

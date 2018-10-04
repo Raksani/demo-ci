@@ -39,4 +39,14 @@ public class ArrayMath {
 		}
 		return result;
 	}
+	
+	/**
+	 * Sum the squares of elements in an array7
+	 * @param x the array to sum, may be empty
+	 * @return the sum of squares in x
+	 */
+	public static double sumSquares(double[] x) {
+		return 0.0;
+	
+	}
 }
